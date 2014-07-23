@@ -42,6 +42,7 @@ public:
     void disable();
     void toggleVisible();
     ofxUICanvas* getActiveCanvas();
+    void setActiveCanvas( ofxUICanvas *_canvas );
     bool isHit(int x, int y);
     void saveSettings(string pathToSaveTo, string fileNamePrefix);
     void loadSettings(string pathToLoadFrom, string fileNamePrefix);

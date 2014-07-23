@@ -67,6 +67,7 @@ void ofxUITabBar::addCanvas(ofxUIScrollableCanvas *_canvas)
 void ofxUITabBar::mainUiEvent(ofxUIEventArgs &event)
 {
     string name = event.getName();
+    
     for (map<ofxUIToggle*, ofxUICanvas*>::iterator it=canvases.begin(); it!=canvases.end(); ++it)
     {
         if(active != NULL && active->getName() == name)
@@ -80,7 +81,19 @@ void ofxUITabBar::mainUiEvent(ofxUIEventArgs &event)
             active = it->second;
             it->first->setValue(true);
             it->second->enable();
-            it->second->setPosition(rect->getX() + rect->getWidth() + padding*0.5, this->rect->getY());
+            switch (widgetPosition) {
+                case OFX_UI_WIDGET_POSITION_LEFT:
+                case OFX_UI_WIDGET_POSITION_RIGHT:
+                    it->second->setPosition(rect->getX(), this->rect->getY() + rect->getHeight() + padding*0.5);
+                    break;
+                    
+                case OFX_UI_WIDGET_POSITION_UP:
+                case OFX_UI_WIDGET_POSITION_DOWN:
+                    it->second->setPosition(rect->getX() + rect->getWidth() + padding*0.5, this->rect->getY());
+                    
+                default:
+                    break;
+            }
         }
         else
         {
@@ -120,6 +133,41 @@ void ofxUITabBar::toggleVisible()
 ofxUICanvas* ofxUITabBar::getActiveCanvas()
 {
     return active;
+}
+
+
+void ofxUITabBar::setActiveCanvas( ofxUICanvas *_canvas )
+{
+    if ( _canvas == NULL ) return;
+    string name = _canvas->getName();
+    
+    for (map<ofxUIToggle*, ofxUICanvas*>::iterator it=canvases.begin(); it!=canvases.end(); ++it)
+    {
+        if(it->second->getName() == name )
+        {
+            active = it->second;
+            it->first->setValue(true);
+            it->second->enable();
+            switch (widgetPosition) {
+                case OFX_UI_WIDGET_POSITION_LEFT:
+                case OFX_UI_WIDGET_POSITION_RIGHT:
+                    it->second->setPosition(rect->getX(), this->rect->getY() + rect->getHeight() + padding*0.5);
+                    break;
+                    
+                case OFX_UI_WIDGET_POSITION_UP:
+                case OFX_UI_WIDGET_POSITION_DOWN:
+                    it->second->setPosition(rect->getX() + rect->getWidth() + padding*0.5, this->rect->getY());
+                    
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            it->first->setValue(false);
+            it->second->disable();
+        }
+    }
 }
 
 bool ofxUITabBar::isHit(int x, int y)
