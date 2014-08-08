@@ -166,4 +166,25 @@ If you lost your way somewhere in the tutorial, don't worry the whole project is
 
 Note: If you don't need to save/load the gui settings and don't want to include ofxXmlSettings in your project, you can set the following define in your project build settings: OFX_UI_NO_XML
 
+## Windows
+* To speed up compilation (and make lives easier), you may also use the included ofxUILib project with Visual Studio
+	* In your project, right click your solution and select Add > Existing Project
+		* Navigate to addons/ofxUI/ofxUILib and add it to your solution
+	* Add ofxUILib as a dependency of your project
+		* Right click on solution and select "properties"
+		* Select "Project dependencies" and select your app in the "Projects" dropdown
+		* Check the box next to "ofxUILib"
+		* Close the "properties" menu
+	* Add a reference to ofxUILib.lib to your project
+		* Right click on your project in the solution explorer, and click "Properties"
+		* Select "Frameworks and References" under "Common Properties"
+		* Click "Add new reference" and check ofxUILib
+	* Add ofxUI source folders
+		* Open project property if not still open
+		* Select "C/C++" under "Configuration properties"
+			* Make sure "All configurations" is selected in the "Configuration" drop-down
+		* Add ..\..\..\addons\ofxUI\src and ..\..\..\addons\ofxUI\libs to "Additional include directories"
+	* That's it!
+
+## Contributors
 ofxUI was / is developed by Reza Ali (www.syedrezaali.com || syed.reza.ali@gmail.com || @rezaali). Since its release in early 2012, its had more than 250 commits and now has 18 contributors: Camilo, obviousjim, prisonerjohn, syedhali, falcon4ever, SoylentGraham, NickHardeman, bilderbuchi, danomatika, rc1, emmanuelgeoffray, samdraz, danoli3, JohnSebastianHussey, markpitchless, kikko, and Garoe. 
