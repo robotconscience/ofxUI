@@ -125,9 +125,11 @@ void ofxUITabBar::toggleVisible()
 {
     ofxUICanvas::toggleVisible();
     
-    if (active != NULL) {
-        active->toggleVisible();
-    }
+	if ( !isVisible() ){
+		for ( auto c : canvases ){
+			c.second->setVisible(false);
+		}
+	}
 }
 
 ofxUICanvas* ofxUITabBar::getActiveCanvas()
